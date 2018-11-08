@@ -65,7 +65,8 @@ RUN mkdir ReduxSimpleStarter
 
 ADD . /ReduxSimpleStarter
 
-EXPOSE 8080 80 8888 8001
+EXPOSE 80 8888 8080
+
+WORKDIR /ReduxSimpleStarter
 
 CMD [ "/bin/bash"]
-CMD npm start
