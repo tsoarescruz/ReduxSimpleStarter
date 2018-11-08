@@ -14,11 +14,23 @@ ENV PATH /opt/conda/bin:$PATH
 
 # update the repository sources list
 # and install dependencies
-RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificates \
-    libglib2.0-0 libxext6 libsm6 libxrender1 build-essential libssl-dev apt-utils \
-    nodejs mysql-client mercurial subversion libpq-dev nodejs-legacy \
-    mysql-client curl && apt-get autoclean -y && \
-    rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y -q --no-install-recommends \
+            apt-transport-https \
+            build-essential \
+            ca-certificates \
+            curl \
+            git \
+            libssl-dev \
+            python \
+            rsync \
+            software-properties-common \
+            devscripts \
+            autoconf \
+            ssl-cert \
+        && apt-get clean -y && \
+        rm -rf /var/lib/apt/lists/*
 
 # nvm environment variables
 ENV NVM_DIR /usr/local/nvm
@@ -53,8 +65,7 @@ RUN mkdir ReduxSimpleStarter
 
 ADD . /ReduxSimpleStarter
 
-EXPOSE 8080
+EXPOSE 8080 80 8888 8001
 
-ENTRYPOINT [ "/usr/bin/tini", "--" ]
 CMD [ "/bin/bash"]
-CMD node start
+CMD npm start
