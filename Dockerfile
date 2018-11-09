@@ -69,4 +69,7 @@ EXPOSE 80 8888 8080
 
 WORKDIR /ReduxSimpleStarter
 
+#install youtube search api
+RUN npm install --save youtube-api-Search
+
 CMD [ "/bin/bash"]
